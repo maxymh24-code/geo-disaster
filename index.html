@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geo-Disaster 地质灾变</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+      "simplex-noise": "https://cdn.jsdelivr.net/npm/simplex-noise@4.0.3/+esm",
+      "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- 加载屏幕 -->
+  <div id="loading-screen">
+    <h1>Geo-Disaster</h1>
+    <p class="subtitle">地质灾变</p>
+    <div id="loading-bar-container">
+      <div id="loading-bar"></div>
+    </div>
+    <p id="loading-text">正在加载...</p>
+  </div>
+
+  <!-- 3D 画布 -->
+  <canvas id="game-canvas"></canvas>
+
+  <!-- 主菜单 -->
+  <div id="main-menu" class="hidden">
+    <h1>Geo-Disaster</h1>
+    <p class="subtitle">地质灾变</p>
+    <div class="menu-buttons">
+      <button id="btn-local">本地游戏</button>
+      <button id="btn-online">在线对战</button>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div id="player-info-bar"></div>
+    <div id="turn-info"></div>
+    <div id="game-log"></div>
+  </div>
+
+  <!-- 骰子按钮 -->
+  <div id="dice-area" class="hidden">
+    <button id="btn-roll-dice">掷骰子</button>
+    <div id="dice-result"></div>
+  </div>
+
+  <!-- 灾害卡弹窗 -->
+  <div id="card-popup" class="hidden">
+    <div id="card-content"></div>
+  </div>
+
+  <!-- 分叉选择 -->
+  <div id="fork-choice" class="hidden">
+    <p>选择前进方向</p>
+    <div id="fork-options"></div>
+  </div>
+
+  <!-- 结算界面 -->
+  <div id="result-screen" class="hidden">
+    <h2>游戏结束</h2>
+    <div id="result-content"></div>
+    <button id="btn-back-menu">返回主菜单</button>
+  </div>
+
+  <script type="module">
+    const bar = document.getElementById('loading-bar');
+    bar.style.width = '50%';
+
+    const { init } = await import('./js/main.js');
+    bar.style.width = '100%';
+
+    setTimeout(() => {
+      document.getElementById('loading-screen').classList.add('hidden');
+      init();
+    }, 500);
+  </script>
+</body>
+</html>
